@@ -1,32 +1,44 @@
 package credentials;
 
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
 public class Credentials {
-    private final static String pathToFile = "src/main/resources/credentials.properties";
-    private static Properties properties;
+    private final static String pathToFile = "src/main/resources/credentials.prop";
+    private static Properties prop;
+    private static String email;
+    private static String pass;
 
     public Credentials() {
-        properties = new Properties();
+        prop = new Properties();
         readFile();
     }
 
-    private void readFile() {
+    private static void readFile() {
         try {
-            properties.load(new FileInputStream(pathToFile));
+            prop.load(new FileInputStream(pathToFile));
+            setEmail(prop.getProperty("email"));
+            setPass(prop.getProperty("pass"));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public String getEmail() {
-        return properties.getProperty("email");
+    public static String getEmail() {
+        return email;
     }
 
-    public String getPassword() {
-        return properties.getProperty("pass");
+    public static String getPassword() {
+        return pass;
     }
 
+    static void setEmail(String email){
+        Credentials.email = email;
+    }
+
+    public static void setPass(String pass) {
+        Credentials.pass = pass;
+    }
 }
