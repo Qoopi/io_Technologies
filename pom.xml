@@ -7,6 +7,7 @@
     <groupId>test_tastk</groupId>
     <artifactId>io_Technologies</artifactId>
     <version>1.0</version>
+
     <build>
         <plugins>
             <plugin>
