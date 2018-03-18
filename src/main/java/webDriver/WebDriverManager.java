@@ -13,7 +13,7 @@ public class WebDriverManager {
                 webDriver.get().getTitle();
             } catch (NoSuchSessionException e) {
                 webDriver.get().quit();
-                WebDriverManager.setWebDriver(WebDriverFactory.createInstance("chrome"));
+                WebDriverManager.setWebDriver(WebDriverFactory.createInstance());
             }
         }
         return webDriver.get();
