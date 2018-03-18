@@ -7,11 +7,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import ru.yandex.qatools.allure.annotations.Step;
 import utils.WaitsAsserts;
 
-
-
-/**
- * Created by oGGi on 18.03.2018.
- */
 public class LogIn extends WaitsAsserts {
     private static final String BaseURI = "https://onthe.io/auth";
     private static final String logInTittle = ".io analytics | Authorization";
@@ -25,11 +20,12 @@ public class LogIn extends WaitsAsserts {
     }
     @Step
     public void LoginIntoApp(){
+        Credentials cred = new Credentials();
         waitForVisibility(emailInput);
-        sendKeys(emailInput, Credentials.getEmail());
+        sendKeys(emailInput, cred.getEmail());
 
         waitForVisibility(passwordInput);
-        sendKeys(passwordInput, Credentials.getPassword());
+        sendKeys(passwordInput, cred.getPassword());
     }
     public void getChart() {
         WebDriver driver = new ChromeDriver();

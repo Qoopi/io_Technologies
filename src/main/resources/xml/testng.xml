@@ -3,7 +3,7 @@
 <suite name="Test suite">
     <test name="io Technologies">
         <classes>
-            <class name="test_task"/>
+            <class name="TestTask"/>
         </classes>
     </test>
 </suite>

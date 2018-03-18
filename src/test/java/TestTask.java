@@ -6,7 +6,7 @@ import utils.Listener;
 import static utils.WaitsAsserts.sleep;
 
 @Listeners(Listener.class)
-public class test_task {
+public class TestTask {
 
     @Test
     public void test() {
