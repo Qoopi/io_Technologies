@@ -2,7 +2,6 @@ package utils;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import webDriver.WebDriverFactory;
@@ -15,7 +14,7 @@ public class WaitsAsserts {
     private int defaultTimeoutSec = 20;
     private int maxRetries = 4;
 
-    public static void sleep(int time) {
+    protected static void sleep(int time) {
         try {
             Thread.sleep(time);
         } catch (InterruptedException e) {
@@ -23,24 +22,14 @@ public class WaitsAsserts {
         }
     }
 
-    protected void clearInput(String inputXpath) {
-        WebDriverManager.getDriver().findElement(By.xpath(inputXpath)).clear();
-    }
-
     protected void getPage(String url) {
         WebDriver driver = WebDriverManager.getDriver();
         driver.get(url);
     }
 
-
     protected void assertExists(String xpath) {
         new JSWaiter().waitUntilJSReady();
         Assert.assertTrue(elementExists(xpath), AssertMessages.elementIsNotFound);
-    }
-
-    protected void assertNotExists(String xpath) {
-        new JSWaiter().waitUntilJSReady();
-        Assert.assertFalse(elementExists(xpath), AssertMessages.elementIsFound);
     }
 
     protected void switchToCurrentWindow() {
@@ -61,13 +50,6 @@ public class WaitsAsserts {
         }
     }
 
-    protected void cklickOnDropDown(String xPath, String text) {
-        waitForVisibility(xPath);
-        new JSWaiter().waitUntilJSReady();
-        Select drop = new Select(WebDriverManager.getDriver().findElement(By.xpath(xPath)));
-        drop.selectByVisibleText(text);
-    }
-
     protected String getElement(String xPath) {
         WebDriver driver = WebDriverManager.getDriver();
         new JSWaiter().waitUntilJSReady();
@@ -80,14 +62,6 @@ public class WaitsAsserts {
         waitForVisibility(xpath);
         String anElementTile = getText(xpath);
         Assert.assertTrue(anElementTile.contains(text), AssertMessages.elementTextIsNotAsExpected);
-    }
-
-    protected void assertVisible(String xpath) {
-        WebDriver driver = WebDriverManager.getDriver();
-        WebDriverWait wait = new WebDriverWait(driver, defaultTimeoutSec);
-        new JSWaiter().waitUntilJSReady();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
-        Assert.assertTrue(driver.findElement(By.xpath(xpath)).isDisplayed(), AssertMessages.elementIsNotVisible);
     }
 
     protected void waitForVisibility(String xpath) {
@@ -104,7 +78,7 @@ public class WaitsAsserts {
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
     }
 
-    protected boolean elementExists(String xpath) {
+    private boolean elementExists(String xpath) {
         new JSWaiter().waitUntilJSReady();
         WebDriver driver = WebDriverManager.getDriver();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -113,16 +87,7 @@ public class WaitsAsserts {
         return exists;
     }
 
-    protected int elementsCount(String xpath) {
-        new JSWaiter().waitUntilJSReady();
-        WebDriver driver = WebDriverManager.getDriver();
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        int elementCount = driver.findElements(By.xpath(xpath)).size();
-        driver.manage().timeouts().implicitlyWait(WebDriverFactory.webDriverImplicitlyWait, TimeUnit.SECONDS);
-        return elementCount;
-    }
-
-    protected String getText(String xpath) {
+    private String getText(String xpath) {
         new JSWaiter().waitUntilJSReady();
         WebDriver driver = WebDriverManager.getDriver();
         String text = null;
@@ -203,7 +168,7 @@ public class WaitsAsserts {
         return result;
     }
 
-    protected WebElement retryingFindElementByXpath(String xpath) {
+    private WebElement retryingFindElementByXpath(String xpath) {
         WebDriver driver = WebDriverManager.getDriver();
         WebElement element = null;
         int attempts = 0;
@@ -221,38 +186,6 @@ public class WaitsAsserts {
         }
         Assert.assertTrue(element != null, AssertMessages.elementIsNotFound + " ' " + xpath + " ' ");
         return element;
-    }
-
-    protected String getElementAttribute(String xpath, String attribute) {
-        new JSWaiter().waitUntilJSReady();
-        waitForVisibility(xpath);
-        WebDriver driver = WebDriverManager.getDriver();
-        String elementAttribute = null;
-        int attempts = 0;
-        while (elementAttribute == null && attempts <= maxRetries) {
-            try {
-                WebElement element = driver.findElement(By.xpath(xpath));
-                elementAttribute = element.getAttribute(attribute);
-                break;
-            } catch (WebDriverException e) {
-                sleep(500);
-            }
-            attempts++;
-        }
-        if (elementAttribute == null) {
-            System.out.println("FAILED TO GET ELEMENT'S ATTRIBUTE: '" + xpath + "'");
-        }
-        return elementAttribute;
-    }
-
-    /**
-     * Use this method to click on elements like drop-down menu items
-     * Otherwise, material-ui may bring you a lot of difficulties
-     */
-    protected void clickAnimated(String xpath) {
-        waitForVisibility(xpath);
-        waitForClickable(xpath);
-        retryingClickByXpath(xpath);
     }
 
     /**

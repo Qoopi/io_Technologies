@@ -1,9 +1,6 @@
 package pageObjects;
 
 import credentials.Credentials;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import ru.yandex.qatools.allure.annotations.Step;
 import utils.WaitsAsserts;
 
@@ -19,13 +16,13 @@ public class LogIn extends WaitsAsserts {
     private static final String confirm = "//*[text()=\"Continue\"]";
 
     @Step
-    public void getToLoginPage(){
+    private void getToLoginPage(){
         getPage(baseUri);
         assertTitleContains(logInTittle);
     }
 
     @Step
-    public void enterCreds() {
+    private void enterCreds() {
         Credentials cred = new Credentials();
         waitForVisibility(emailInput);
         sendKeys(emailInput, cred.getEmail());
@@ -35,14 +32,14 @@ public class LogIn extends WaitsAsserts {
     }
 
     @Step
-    public void clickLogInButton() {
+    private void clickLogInButton() {
         waitForVisibility(logInButton);
         waitForClickable(logInButton);
         click(logInButton);
     }
 
     @Step
-    public void pickProject() {
+    private void pickProject() {
         waitForVisibility(projectLink);
         waitForClickable(projectLink);
         click(projectLink);
@@ -50,7 +47,7 @@ public class LogIn extends WaitsAsserts {
     }
 
     @Step
-    public void confirm() {
+    private void confirm() {
         waitForVisibility(confirm);
         waitForClickable(confirm);
         click(confirm);
@@ -65,11 +62,6 @@ public class LogIn extends WaitsAsserts {
         clickLogInButton();
         pickProject();
         confirm();
-    }
-
-    public void getChart() {
-        WebDriver driver = new ChromeDriver();
-        String xyi = driver.findElement(By.xpath("gjgjgj")).getAttribute("ddf");
     }
 
 }

@@ -21,7 +21,7 @@ public class UiUtils {
         jse.executeScript("scroll(0,1000 );");
     }
 
-    public String getTime() {
+    String getTime() {
         DateFormat dateFormat = new SimpleDateFormat("(dd.MM.yyyy) HH-mm-ss");
         Date date = new Date();
         return dateFormat.format(date);

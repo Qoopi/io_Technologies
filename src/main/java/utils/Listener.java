@@ -12,7 +12,6 @@ import pageObjects.LogIn;
 import ru.yandex.qatools.allure.annotations.Attachment;
 import webDriver.WebDriverFactory;
 import webDriver.WebDriverManager;
-
 import java.util.logging.Level;
 
 public class Listener implements ITestListener {
