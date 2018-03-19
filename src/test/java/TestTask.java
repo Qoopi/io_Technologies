@@ -1,19 +1,23 @@
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageObjects.LogIn;
+import pageObjects.MainMenu;
 import utils.Listener;
-
-import static utils.WaitsAsserts.sleep;
 
 @Listeners(Listener.class)
 public class TestTask {
 
-    @Test
-    public void test() {
-        LogIn log = new LogIn();
-        log.getToLoginPage();
-        log.LoginIntoApp();
-        sleep(8000);
+    @Test()
+    public void checkMainMenu() {
+        MainMenu menu = new MainMenu();
+        menu.checkMainMenu();
+        menu.checkDataHome();
+        menu.articles();
+        menu.authors();
+        menu.blocks();
+        menu.video();
+        menu.smm();
     }
 
 }

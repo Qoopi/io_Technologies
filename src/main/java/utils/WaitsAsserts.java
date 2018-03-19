@@ -26,7 +26,8 @@ public class WaitsAsserts {
     }
 
     protected void getPage(String url) {
-        WebDriverManager.getDriver().get(url);
+        WebDriver driver = WebDriverManager.getDriver();
+        driver.get(url);
     }
 
     protected void assertExists(String xpath) {
@@ -39,12 +40,13 @@ public class WaitsAsserts {
         Assert.assertFalse(elementExists(xpath), AssertMessages.elementIsFound);
     }
 
-    protected void assertTitleContains(String title) {
-        new JSWaiter().waitUntilJSReady();
-        String currentTitle = WebDriverManager.getDriver().getTitle();
-        Assert.assertTrue(currentTitle.contains(title), AssertMessages.elementTextIsNotAsExpected);
-
+    protected void switchToCurrentWindow() {
+        for (String winHandle : WebDriverManager.getDriver().getWindowHandles ()){
+            WebDriverManager.getDriver().switchTo().window(winHandle);
+        }
     }
+
+
 
     protected void assertText(String xpath, String text) {
         waitForVisibility(xpath);
@@ -276,4 +278,12 @@ public class WaitsAsserts {
         }
         return result;
     }
+
+    protected void assertTitleContains(String title) {
+        new JSWaiter().waitUntilJSReady();
+        String currentTitle = WebDriverManager.getDriver().getTitle();
+        Assert.assertTrue(currentTitle.contains(title), AssertMessages.elementTextIsNotAsExpected);
+
+    }
+
 }

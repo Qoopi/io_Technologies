@@ -8,6 +8,7 @@ import org.openqa.selenium.logging.LogType;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
+import pageObjects.LogIn;
 import ru.yandex.qatools.allure.annotations.Attachment;
 import webDriver.WebDriverFactory;
 import webDriver.WebDriverManager;
@@ -29,6 +30,9 @@ public class Listener implements ITestListener {
                 || WebDriverManager.getDriver().toString().contains("null")) {
             WebDriverManager.setWebDriver(WebDriverFactory.createInstance());
         }
+        LogIn log = new LogIn();
+        log.logIn();
+
     }
 
     @Override
@@ -64,6 +68,10 @@ public class Listener implements ITestListener {
     public void onStart(ITestContext iTestContext) {
         System.out.println("============Starting testing process============");
         params = new UiUtils().getTime();
+        if (WebDriverManager.getDriver() == null
+                || WebDriverManager.getDriver().toString().contains("null")) {
+            WebDriverManager.setWebDriver(WebDriverFactory.createInstance());
+        }
     }
 
     @Override
