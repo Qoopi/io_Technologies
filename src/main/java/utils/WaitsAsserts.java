@@ -7,6 +7,8 @@ import org.testng.Assert;
 import webDriver.WebDriverFactory;
 import webDriver.WebDriverManager;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class WaitsAsserts {
@@ -30,6 +32,7 @@ public class WaitsAsserts {
         driver.get(url);
     }
 
+
     protected void assertExists(String xpath) {
         new JSWaiter().waitUntilJSReady();
         Assert.assertTrue(elementExists(xpath), AssertMessages.elementIsNotFound);
@@ -46,7 +49,17 @@ public class WaitsAsserts {
         }
     }
 
-
+    protected void getElements(String xPath){
+        WebDriver driver = WebDriverManager.getDriver();
+        new JSWaiter().waitUntilJSReady();
+        waitForVisibility(xPath);
+        if (elementExists(xPath)) {
+            List<WebElement> elements = driver.findElements(By.xpath(xPath));
+            for (WebElement element : elements) {
+                Assert.assertTrue(element.getText().contains("team"),AssertMessages.elementTextIsNotAsExpected);
+            }
+        }
+    }
 
     protected void assertText(String xpath, String text) {
         waitForVisibility(xpath);
@@ -102,6 +115,7 @@ public class WaitsAsserts {
         while (text == null && attempts < maxRetries) {
             try {
                 text = driver.findElement(By.xpath(xpath)).getText();
+                System.out.println(text);
                 break;
             } catch (WebDriverException e) {
                 sleep(500);

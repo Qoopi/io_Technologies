@@ -30,9 +30,6 @@ public class Listener implements ITestListener {
                 || WebDriverManager.getDriver().toString().contains("null")) {
             WebDriverManager.setWebDriver(WebDriverFactory.createInstance());
         }
-        LogIn log = new LogIn();
-        log.logIn();
-
     }
 
     @Override
@@ -72,12 +69,14 @@ public class Listener implements ITestListener {
                 || WebDriverManager.getDriver().toString().contains("null")) {
             WebDriverManager.setWebDriver(WebDriverFactory.createInstance());
         }
+        LogIn log = new LogIn();
+        log.logIn();
     }
 
     @Override
     public void onFinish(ITestContext iTestContext) {
         System.out.println("==========Finishing testing process============");
-        WebDriverManager.getDriver().close();
+        WebDriverManager.getDriver().quit();
     }
 
 

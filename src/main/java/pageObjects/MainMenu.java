@@ -24,7 +24,11 @@ public class MainMenu extends WaitsAsserts {
     private static final String smm = "//*[@data-title=\"smm\"]";
     private static final String dataSMM = "//*[@class=\"data_smm\"]";
 
-
+    @Step
+    public void getToEditorable(){
+        waitForClickable(editorial);
+        click(editorial);
+    }
     @Step
     public void checkMainMenu() {
         waitForVisibility(editorial);

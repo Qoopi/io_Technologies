@@ -1,7 +1,6 @@
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pageObjects.LogIn;
+import pageObjects.Home;
 import pageObjects.MainMenu;
 import utils.Listener;
 
@@ -20,4 +19,25 @@ public class TestTask {
         menu.smm();
     }
 
+    @Test
+    public void checkDataToolTipsSwitcher() {
+        Home home = new Home();
+        home.openHomeReport();
+        home.switchToRT();
+        home.switchToLast10Minutes();
+        home.switchToLastHour();
+        home.switchToToDay();
+        home.switchToYesterday();
+        home.switchTo7Days();
+        home.switchTo30Days();
+    }
+
+    @Test
+    public void filterByAuthorCheck(){
+        Home home = new Home();
+        MainMenu menu = new MainMenu();
+        menu.getToEditorable();
+        home.openHomeReport();
+        home.filterByAuthor();
+    }
 }
