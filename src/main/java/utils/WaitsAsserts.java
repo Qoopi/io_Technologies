@@ -2,12 +2,12 @@ package utils;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import webDriver.WebDriverFactory;
 import webDriver.WebDriverManager;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -59,6 +59,21 @@ public class WaitsAsserts {
                 Assert.assertTrue(element.getText().contains("team"),AssertMessages.elementTextIsNotAsExpected);
             }
         }
+    }
+
+    protected void cklickOnDropDown(String xPath, String text) {
+        waitForVisibility(xPath);
+        new JSWaiter().waitUntilJSReady();
+        Select drop = new Select(WebDriverManager.getDriver().findElement(By.xpath(xPath)));
+        drop.selectByVisibleText(text);
+    }
+
+    protected String getElement(String xPath) {
+        WebDriver driver = WebDriverManager.getDriver();
+        new JSWaiter().waitUntilJSReady();
+        waitForVisibility(xPath);
+        List<WebElement> elements = driver.findElements(By.xpath(xPath));
+        return elements.get(0).getText();
     }
 
     protected void assertText(String xpath, String text) {

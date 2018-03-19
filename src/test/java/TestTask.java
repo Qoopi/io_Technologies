@@ -1,5 +1,6 @@
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+import pageObjects.Articles;
 import pageObjects.Home;
 import pageObjects.MainMenu;
 import utils.Listener;
@@ -36,8 +37,25 @@ public class TestTask {
     public void filterByAuthorCheck(){
         Home home = new Home();
         MainMenu menu = new MainMenu();
-        menu.getToEditorable();
+        menu.getToEditorial();
         home.openHomeReport();
         home.filterByAuthor();
+    }
+
+    @Test
+    public void checkFilterInArticles() {
+        Articles art = new Articles();
+        art.getToArticles();
+        art.checkIfListFResultsChanged();
+        art.switchFilterAverageTime();
+        art.checkIfListFResultsChanged();
+        art.switchFilterRead();
+        art.checkIfListFResultsChanged();
+        art.switchFilterRecirculation();
+        art.checkIfListFResultsChanged();
+        art.switchFilterNewRatio();
+        art.checkIfListFResultsChanged();
+        art.switchFilterFB();
+        art.checkIfListFResultsChanged();
     }
 }

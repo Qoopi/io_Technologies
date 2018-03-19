@@ -3,9 +3,6 @@ package pageObjects;
 import ru.yandex.qatools.allure.annotations.Step;
 import utils.WaitsAsserts;
 
-/**
- * Created by oGGi on 18.03.2018.
- */
 public class MainMenu extends WaitsAsserts {
     private static final String editorial = "//*[@data-title=\"editorial\"]";
     private static final String home = "//*[@qa-id=\"home\"]";
@@ -25,7 +22,7 @@ public class MainMenu extends WaitsAsserts {
     private static final String dataSMM = "//*[@class=\"data_smm\"]";
 
     @Step
-    public void getToEditorable(){
+    public void getToEditorial() {
         waitForClickable(editorial);
         click(editorial);
     }
@@ -42,6 +39,7 @@ public class MainMenu extends WaitsAsserts {
     @Step
     public void checkDataHome() {
         waitForVisibility(home);
+        click(home);
         assertExists(dataHome);
     }
 
